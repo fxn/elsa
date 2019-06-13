@@ -15,8 +15,7 @@ defmodule Elsa do
 
   defdelegate produce_sync(endpoints, topic, partition, key, value), to: Elsa.Producer, as: :produce_sync
 
-  def fetch() do
-  end
+  defdelegate list_groups(endpoints), to: Elsa.Group, as: :list
 
   def default_client(), do: :elsa_default_client
 
