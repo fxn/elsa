@@ -16,4 +16,14 @@ defmodule Elsa.Group do
     end)
   end
 
+  def describe(endpoints, group) do
+    with_connection(endpoints, fn connection ->
+      version = get_api_version(connection, :describe_groups)
+      request = :kpro_req_lib.make(:describe_groups, version, %{group_ids: [group]})
+
+      {:ok, response} = :kpro.request_sync(connection, request, 5_000)
+      kpro_rsp(response, :msg)
+    end)
+  end
+
 end

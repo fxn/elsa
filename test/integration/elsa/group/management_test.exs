@@ -18,6 +18,18 @@ defmodule Elsa.Group.ManagementTest do
     end
   end
 
+  describe "describe/2" do
+    test "should describe the group" do
+      {:ok, pid1} = start_subscriber("group-2")
+
+      Process.sleep(10_000)
+
+      assert_async fn ->
+        assert "" == Elsa.Group.describe(@brokers, "group-2")
+      end
+    end
+  end
+
   defp start_subscriber(group) do
     Elsa.Group.Supervisor.start_link(
       name: String.to_atom(group),
